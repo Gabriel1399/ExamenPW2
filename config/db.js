@@ -1,5 +1,5 @@
 import {Sequelize} from "sequelize";
-const db = new Sequelize('informacion','root','1234',{
+const db = new Sequelize('bdZacatlan','root','1234',{
     dialect: 'mariadb',
     dialectOptions:{
         host:'127.0.0.1',

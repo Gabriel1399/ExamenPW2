@@ -1,0 +1,31 @@
+extends ./layout/index.pug
+block compartircontenido 
+    main.container.mt-5 
+        h1.text-center.mt-5 #{pagina}
+        .row 
+            .col-md-12 
+                h2.d.block.w-100.text-center Agregar Hotel   
+                if (errores)
+                    each error in errores 
+                        .alert.col.alert-danger.text-center = error.mensaje 
+
+            .row.justify-content-center.col 
+                .col-md-8 
+                    form(action="/hotel" method="POST")
+                        .form-group 
+                            label(for="id_htl") Id 
+                            input#id_htl(type="text",placeholder="Identificador",name="id_htl",class="form-control",value=id_htl, readonly="readonly")
+                        .form-group 
+                            label(for="nombre") Nombre  
+                            input#nombre(type="text",placeholder="Tu Nombre",name="nombre",class="form-control",value=nombre)
+                        .form-group 
+                            label(for="direccion") Direccion 
+                            input#direccion(type="text",placeholder="Tu direccion",name="direccion",class="form-control",value=direccion)
+                        .form-group 
+                            label(for="telefono") Telefono  
+                            input#telefono(type="text",placeholder="Tu telefono",name="telefono",class="form-control",value=telefono)
+                        .form-group 
+                            label(for="correo") Correo 
+                            input#correo(type="text",placeholder="Tu correo",name="correo",class="form-control",value=correo)
+
+                        input.btn.btn-success.btn-block(type="submit")

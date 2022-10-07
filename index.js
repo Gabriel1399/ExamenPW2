@@ -1,5 +1,6 @@
 //const express=require('express');
 import express from "express";
+import rutas from "./rutas/index.js";
 import db from "./config/db.js";
 
 const app = express();
@@ -22,6 +23,14 @@ app.use((req, res, next) => {
     return next();
 });
 
+//Agregar parser body para obtener los datos de un formulario
+app.use(express.urlencoded({extended:true}));
+
+//definiendo carpeta publica
+app.use(express.static("public"));
+
+//definiendo rutas
+app.use("/", rutas);
 
 app.listen(port, () => {
     console.log('Servidor iniciado en el puerto ' + port);
