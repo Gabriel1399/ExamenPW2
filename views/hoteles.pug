@@ -11,7 +11,7 @@ block compartircontenido
 
             .row.justify-content-center.col 
                 .col-md-8 
-                    form(action="/hotel" method="POST")
+                    form(action="/hoteles" method="POST")
                         .form-group 
                             label(for="id_htl") Id 
                             input#id_htl(type="text",placeholder="Identificador",name="id_htl",class="form-control",value=id_htl, readonly="readonly")
@@ -27,5 +27,8 @@ block compartircontenido
                         .form-group 
                             label(for="correo") Correo 
                             input#correo(type="text",placeholder="Tu correo",name="correo",class="form-control",value=correo)
+                        .form-group 
+                            label(for="id_grt") Gerente 
+                            input#id_grt(type="text",placeholder="Gerente",name="id_grt",class="form-control",value=id_grt)
 
                         input.btn.btn-success.btn-block(type="submit")

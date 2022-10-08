@@ -11,7 +11,7 @@ block compartircontenido
 
             .row.justify-content-center.col 
                 .col-md-8 
-                    form(action="/habitacion" method="POST")
+                    form(action="/habitaciones" method="POST")
                         .form-group 
                             label(for="id_hbt") Id 
                             input#id_hbt(type="text",placeholder="Identificador",name="id_hbt",class="form-control",value=id_hbt, readonly="readonly")
@@ -22,7 +22,15 @@ block compartircontenido
                             label(for="nombre") Nombre  
                             input#nombre(type="text",placeholder="Tu Nombre",name="nombre",class="form-control",value=nombre)
                         .form-group 
-                            label(for="refrigerador") Refrigerador 
-                            input#refrigerador(type="text",placeholder="Hay refrigerador [True/False]?",name="refrigerador",class="form-control",value=refrigerador)
+                            label(for="refrigerador") Refrigerador
+                            br 
+                            <select name="refrigerador">
+                                <option value=true>si</option>
+                                <option value=false>no</option>
+                            </select>
+                            <!--input#refrigerador(type="text",placeholder="Hay refrigerador [true/false]?",name="refrigerador",class="form-control",value=refrigerador)-->
+                        .form-group 
+                            label(for="id_htl") Hotel 
+                            input#id_htl(type="text",placeholder="Hotel",name="id_htl",class="form-control",value=id_htl)
                         
                         input.btn.btn-success.btn-block(type="submit")

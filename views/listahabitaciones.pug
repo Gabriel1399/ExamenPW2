@@ -1,0 +1,18 @@
+extends ./layout/index.pug
+block compartircontenido 
+    h1 #{pagina}
+    main.container.mt-5 
+        .row
+            each habitacion in habitaciones                 
+                .col-md.col-lg-4.mv-4 
+                    .card                        
+                        .card-body
+                            h3=habitacion.nombre
+                            h3=habitacion.piso
+                            h3=habitacion.hotele.nombre
+                            blockquote 
+                            a(href=`/modificarHab?id_hbt=${habitacion.id_hbt}`,
+                            class='btn btn-success btn-clock') Modificar
+                            |
+                            a(href=`/eliminar?id_hbt=${habitacion.id_hbt}`,
+                            class='btn btn-danger btn-clock') Eliminar

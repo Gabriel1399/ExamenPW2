@@ -1,6 +1,7 @@
-import {hotel} from "../models/Hotel.js";
-const guardarHotel = async(req,res)=>{
-    const{id_htl, nombre, direccion, telefono,correo} = req.body;
+import {hotel} from "../models/Hoteles.js";
+import {gerente} from "../models/Gerentes.js"
+const guardarHoteles = async(req,res)=>{
+    const{id_htl, nombre, direccion, telefono,correo, id_grt} = req.body;
     const errores = [];
     if(nombre.trim()===""){
         errores.push({mensaje: "El nombre no debe ser vacio"});
@@ -14,14 +15,18 @@ const guardarHotel = async(req,res)=>{
     if(correo.trim()===""){
         errores.push({mensaje: "El correo no debe ser vacio"});
     }
+    if(id_grt.trim()===""){
+        errores.push({mensaje: "El id_grt no debe ser vacio"});
+    }
     if (errores.length>0){
-        res.render("hotel",{
-            pagina:"Hotel",
+        res.render("hoteles",{
+            pagina:"Hoteles",
             errores,
             nombre,
             direccion,
             telefono,
             correo,
+            id_grt,
         });
     } else {
         console.log(id_htl);
@@ -33,9 +38,10 @@ const guardarHotel = async(req,res)=>{
                     nombre,
                     direccion,
                     telefono,
-                    correo
+                    correo,
+                    id_grt
                 },{where: {id_htl:id_htl}});
-                res.redirect('/hotel');
+                res.redirect('/listahoteles');
             } catch (error){
                 console.log(error);
             }
@@ -47,9 +53,10 @@ const guardarHotel = async(req,res)=>{
                     nombre,
                     direccion,
                     telefono,
-                    correo
+                    correo,
+                    id_grt
                 });
-                res.redirect('/hotel');
+                res.redirect('/hoteles');
             } catch (error){
                 console.log(error);
             }
@@ -59,13 +66,16 @@ const guardarHotel = async(req,res)=>{
 };
 
 const listaHoteles = async (req, res) => {
-    const hotel = await hotel.findAll({
-        attributes: ["id_htl", "nombre", "direccion", "telefono", "correo"],
+    const hoteles = await hotel.findAll({
+        attributes: ["id_htl", "nombre", "direccion", "telefono", "correo", "id_grt"],
+        include: {
+            model: gerente,
+        }
     });
 
-    res.render("hotel", {
-        pagina: "Hotel",
-        hotel
+    res.render("listahoteles", {
+        pagina: "Hoteles",
+        hoteles
     });
 };
 
@@ -77,14 +87,15 @@ const cambiarHoteles = async (req, res) => {
         console.log(hot);
         //const {correo, imagen, opinion} =req.body;
         const errores = [];
-        res.render("hotel", {
-            pagina: "Hotel",
+        res.render("hoteles", {
+            pagina: "Hoteles",
             errores, 
             id_htl:hot.id_htl,
             nombre:hot.nombre,
             direccion:hot.direccion,
             telefono:hot.telefono,
-            correo:hot.correo
+            correo:hot.correo,
+            id_grt:hot.id_grt
         });
     } catch(error){
     console.log(error);
@@ -96,9 +107,9 @@ const eliminarHoteles =async(req, res) => {
     try{
         await hotel.destroy({
             where: {id_htl:req.query.id_htl}});
-        res.redirect("/hotel");
+        res.redirect("/listahotel");
     } catch(error){
         console.log(error);
     }
 };
-export {guardarHotel, listaHoteles, cambiarHoteles, eliminarHoteles};
+export {guardarHoteles, listaHoteles, cambiarHoteles, eliminarHoteles};

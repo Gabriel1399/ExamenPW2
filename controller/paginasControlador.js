@@ -1,6 +1,6 @@
-import { hotel } from '../models/Hotel.js';
-import { gerente } from '../models/Gerente.js';
-import { habitacion } from '../models/Habitacion.js';
+import { hotel } from '../models/Hoteles.js';
+import { gerente } from '../models/Gerentes.js';
+import { habitacion } from '../models/Habitaciones.js';
 
 const paginaInicio=(req,res) =>{
     res.render("inicio", {
@@ -9,20 +9,20 @@ const paginaInicio=(req,res) =>{
 }
 
 const paginaHoteles = (req, res) => {
-    res.render("hotel", {
-        pagina: "Hotel"
+    res.render("hoteles", {
+        pagina: "Hoteles"
     });
 }
 
 const paginaGerentes = (req, res) => {
-    res.render("gerente", {
-        pagina: "Gerente",
+    res.render("gerentes", {
+        pagina: "Gerentes",
     });
 }
 
 const paginaHabitaciones = (req, res) => {
-    res.render("habitacion", {
-        pagina: "Habitacion"
+    res.render("habitaciones", {
+        pagina: "Habitaciones"
     });
 }
 

@@ -11,9 +11,9 @@ block compartircontenido
 
             .row.justify-content-center.col 
                 .col-md-8 
-                    form(action="/gerente" method="POST")
+                    form(action="/gerentes" method="POST")
                         .form-group 
-                            label(for="id_grt") Id 
+                            label(for="id_grt") Id
                             input#id_grt(type="text",placeholder="Identificador",name="id_grt",class="form-control",value=id_grt, readonly="readonly")
                         .form-group 
                             label(for="nombre") Nombre  

@@ -1,0 +1,17 @@
+extends ./layout/index.pug
+block compartircontenido 
+    h1 #{pagina}
+    main.container.mt-5 
+        .row 
+            each gerente in gerentes                 
+                .col-md.col-lg-4.mv-4 
+                    .card                        
+                        .card-body
+                            h3=gerente.nombre
+                            h3=gerente.id_grt
+                            blockquote 
+                            a(href=`/modificarGer?id_grt=${gerente.id_grt}`,
+                            class='btn btn-success btn-clock') Modificar
+                            |
+                            a(href=`/eliminar?id_grt=${gerente.id_grt}`,
+                            class='btn btn-danger btn-clock') Eliminar

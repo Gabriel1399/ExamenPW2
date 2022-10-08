@@ -1,4 +1,4 @@
-import {gerente} from "../models/Gerente.js";
+import {gerente} from "../models/Gerentes.js";
 const guardarGerentes = async(req,res)=>{
     const{id_grt, nombre, ap_paterno, ap_materno, telefono} = req.body;
     const errores = [];
@@ -15,8 +15,8 @@ const guardarGerentes = async(req,res)=>{
         errores.push({mensaje: "El telefono no debe ser vacio"});
     }
     if (errores.length>0){
-        res.render("gerente",{
-            pagina:"Gerente",
+        res.render("gerentes",{
+            pagina:"Gerentes",
             errores,
             nombre,
             ap_paterno,
@@ -35,7 +35,7 @@ const guardarGerentes = async(req,res)=>{
                     ap_materno,
                     telefono
                 },{where: {id_grt:id_grt}});
-                res.redirect('/gerente');
+                res.redirect('/listagerentes');
             } catch (error){
                 console.log(error);
             }
@@ -49,7 +49,7 @@ const guardarGerentes = async(req,res)=>{
                     ap_materno,
                     telefono
                 });
-                res.redirect('/gerente');
+                res.redirect('/gerentes');
             } catch (error){
                 console.log(error);
             }
@@ -59,13 +59,13 @@ const guardarGerentes = async(req,res)=>{
 };
 
 const listaGerentes = async (req, res) => {
-    const gerente = await gerente.findAll({
+    const gerentes = await gerente.findAll({
         attributes: ["id_grt", "nombre", "ap_paterno", "ap_materno", "telefono"],
     });
 
-    res.render("gerente", {
-        pagina: "Gerente",
-        gerente
+    res.render("listaGerentes", {
+        pagina: "Gerentes",
+        gerentes
     });
 };
 
@@ -77,8 +77,8 @@ const cambiarGerentes = async (req, res) => {
         console.log(ger);
         //const {correo, imagen, opinion} =req.body;
         const errores = [];
-        res.render("gerente", {
-            pagina: "Gerente",
+        res.render("gerentes", {
+            pagina: "Gerentes",
             errores, 
             id_grt:ger.id_grt,
             nombre:ger.nombre,
@@ -96,7 +96,7 @@ const eliminarGerentes =async(req, res) => {
     try{
         await gerente.destroy({
             where: {id_grt:req.query.id_grt}});
-        res.redirect("/gerente");
+        res.redirect("/listaGerentes");
     } catch(error){
         console.log(error);
     }

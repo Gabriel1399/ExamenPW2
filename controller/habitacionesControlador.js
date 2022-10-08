@@ -1,6 +1,7 @@
-import {habitacion} from "../models/Habitacion.js";
+import {habitacion} from "../models/Habitaciones.js";
+import { hotel } from "../models/Hoteles.js";
 const guardarHabitaciones = async(req,res)=>{
-    const{id_hbt, piso, nombre, refrigerador} = req.body;
+    const{id_hbt, piso, nombre, refrigerador, id_htl} = req.body;
     const errores = [];
     if(piso.trim()===""){
         errores.push({mensaje: "El piso no debe ser vacio"});
@@ -11,13 +12,17 @@ const guardarHabitaciones = async(req,res)=>{
     if(refrigerador.trim()===""){
         errores.push({mensaje: "El refrigerador no debe ser vacio"});
     }
+    if(id_htl.trim()===""){
+        errores.push({mensaje: "El id_htl no debe ser vacio"});
+    }
     if (errores.length>0){
-        res.render("habitacion",{
-            pagina:"Habitacion",
+        res.render("habitaciones",{
+            pagina:"Habitaciones",
             errores,
             piso,
             nombre,
             refrigerador,
+            id_htl
         });
     } else {
         console.log(id_hbt);
@@ -28,9 +33,10 @@ const guardarHabitaciones = async(req,res)=>{
                 await habitacion.update({
                     piso,
                     nombre,
-                    refrigerador
+                    refrigerador,
+                    id_htl,
                 },{where: {id_hbt:id_hbt}});
-                res.redirect('/habitacion');
+                res.redirect('/listahabitaciones');
             } catch (error){
                 console.log(error);
             }
@@ -41,9 +47,10 @@ const guardarHabitaciones = async(req,res)=>{
                 await habitacion.create({
                     piso,
                     nombre,
-                    refrigerador
+                    refrigerador,
+                    id_htl,
                 });
-                res.redirect('/habitacion');
+                res.redirect('/habitaciones');
             } catch (error){
                 console.log(error);
             }
@@ -53,13 +60,17 @@ const guardarHabitaciones = async(req,res)=>{
 };
 
 const listaHabitaciones = async (req, res) => {
-    const habitacion = await habitacion.findAll({
-        attributes: ["id_hbt", "piso", "nombre", "refrigerador"],
+    const habitaciones = await habitacion.findAll({
+        attributes: ["id_hbt", "piso", "nombre", "refrigerador", "id_htl"],
+        include: {
+            model: hotel,
+            required: true,
+          }
     });
 
-    res.render("habitacion", {
-        pagina: "Habitacion",
-        habitacion
+    res.render("listaHabitaciones", {
+        pagina: "Habitaciones",
+        habitaciones
     });
 };
 
@@ -71,13 +82,14 @@ const cambiarHabitaciones = async (req, res) => {
         console.log(hab);
         //const {correo, imagen, opinion} =req.body;
         const errores = [];
-        res.render("habitacion", {
-            pagina: "Habitacion",
+        res.render("habitaciones", {
+            pagina: "Habitaciones",
             errores, 
             id_hbt:hab.id_hbt,
             piso:hab.piso,
             nombre:hab.nombre,
-            refrigerador:hab.refrigerador
+            refrigerador:hab.refrigerador,
+            id_htl:hab.id_htl
         });
     } catch(error){
     console.log(error);
@@ -89,7 +101,7 @@ const eliminarHabitaciones =async(req, res) => {
     try{
         await habitacion.destroy({
             where: {id_hbt:req.query.id_hbt}});
-        res.redirect("/habitacion");
+        res.redirect("/listaHabitaciones");
     } catch(error){
         console.log(error);
     }
