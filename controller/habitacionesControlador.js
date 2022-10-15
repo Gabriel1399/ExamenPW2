@@ -1,5 +1,6 @@
 import {habitacion} from "../models/Habitaciones.js";
 import { hotel } from "../models/Hoteles.js";
+import { gerente } from "../models/Gerentes.js";
 const guardarHabitaciones = async(req,res)=>{
     const{id_hbt, piso, nombre, refrigerador, id_htl} = req.body;
     const errores = [];
@@ -65,7 +66,7 @@ const listaHabitaciones = async (req, res) => {
         include: {
             model: hotel,
             required: true,
-          }
+        }
     });
 
     res.render("listaHabitaciones", {

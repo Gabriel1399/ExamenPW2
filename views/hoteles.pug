@@ -28,7 +28,10 @@ block compartircontenido
                             label(for="correo") Correo 
                             input#correo(type="text",placeholder="Tu correo",name="correo",class="form-control",value=correo)
                         .form-group 
-                            label(for="id_grt") Gerente 
+                            label(for="id_grt") Gerente
                             input#id_grt(type="text",placeholder="Gerente",name="id_grt",class="form-control",value=id_grt)
-
+                            //-select
+                                each hotel in hoteles  
+                                    option (value=hotel.gerente.id_grt) #{hotel.gerente.nombre}
+                            -//
                         input.btn.btn-success.btn-block(type="submit")

@@ -58,7 +58,7 @@ const guardarGerentes = async(req,res)=>{
     }
 };
 
-const listaGerentes = async (req, res) => {
+const listaGerentes = async (_req, res) => {
     const gerentes = await gerente.findAll({
         attributes: ["id_grt", "nombre", "ap_paterno", "ap_materno", "telefono"],
     });
