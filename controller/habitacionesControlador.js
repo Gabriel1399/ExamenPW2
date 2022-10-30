@@ -69,7 +69,7 @@ const listaHabitaciones = async (req, res) => {
         }
     });
 
-    res.render("listaHabitaciones", {
+    res.render("listahabitaciones", {
         pagina: "Habitaciones",
         habitaciones
     });
@@ -102,7 +102,7 @@ const eliminarHabitaciones =async(req, res) => {
     try{
         await habitacion.destroy({
             where: {id_hbt:req.query.id_hbt}});
-        res.redirect("/listaHabitaciones");
+        res.redirect("/listahabitaciones");
     } catch(error){
         console.log(error);
     }

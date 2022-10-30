@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import db from "../config/db.js";
 
-export const habitacion = db.define('habitaciones', {
+export const habitacion = db.define('Habitaciones', {
     id_hbt: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

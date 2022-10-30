@@ -58,12 +58,12 @@ const guardarGerentes = async(req,res)=>{
     }
 };
 
-const listaGerentes = async (_req, res) => {
+const listaGerentes = async (req, res) => {
     const gerentes = await gerente.findAll({
         attributes: ["id_grt", "nombre", "ap_paterno", "ap_materno", "telefono"],
     });
 
-    res.render("listaGerentes", {
+    res.render("listagerentes", {
         pagina: "Gerentes",
         gerentes
     });
@@ -96,7 +96,7 @@ const eliminarGerentes =async(req, res) => {
     try{
         await gerente.destroy({
             where: {id_grt:req.query.id_grt}});
-        res.redirect("/listaGerentes");
+        res.redirect("/listagerentes");
     } catch(error){
         console.log(error);
     }
