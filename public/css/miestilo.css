@@ -1,5 +1,16 @@
 .navegacion {
-    background-color: #02424e;
+    background-color: #78281F;
+    background-size: 100%;
+
+}
+
+.cuerpo{
+    background-color: #C70039;
+}
+footer .nav a{
+    font-family: 'Staatliches', cursive;
+    font-size: 1.4rem;
+    color: blanchedalmond;
 }
 
 header .nav a {
@@ -10,6 +21,7 @@ header .nav a {
 
 .lista-iconos {
     background-color: rgb(245, 245, 245);
+    
 }
 .lista-iconos img {
     height: 100px;

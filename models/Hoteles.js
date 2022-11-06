@@ -27,11 +27,11 @@ export const hotel = db.define('Hoteles', {
 
 hotel.hasMany (habitacion,{
     foreignKey:'id_htl'
-  });
+});
   
-  habitacion.belongsTo(hotel, {
+habitacion.belongsTo(hotel, {
     foreignKey: {
       name: "id_htl",
     },
-  });
+});
   

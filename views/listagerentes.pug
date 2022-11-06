@@ -7,8 +7,9 @@ block compartircontenido
                 .col-md.col-lg-4.mv-4 
                     .card                        
                         .card-body
-                            h3=gerente.nombre
-                            h3=gerente.id_grt
+                            h3= "Identificador: " + gerente.id_grt
+                            h3= "Nombre: " + gerente.nombre + " " + gerente.ap_paterno + " " + gerente.ap_materno
+                            h3= "Telefono: " + gerente.telefono
                             blockquote 
                             a(href=`/modificarGer?id_grt=${gerente.id_grt}`,
                             class='btn btn-success btn-clock') Modificar
