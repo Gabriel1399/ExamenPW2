@@ -7,9 +7,11 @@ block compartircontenido
                 .col-md.col-lg-4.mv-4 
                     .card                        
                         .card-body
-                            h3=habitacion.nombre
-                            h3=habitacion.piso
-                            h3=habitacion.Hotele.nombre
+                            <!--h5="Identificador: "+ habitacion.id_hbt--> 
+                            h5="Nombre: " + habitacion.nombre
+                            h5="Piso: " +habitacion.piso
+                            h5="Refigereador: " + habitacion.refrigerador
+                            h5="En Hotel: " +habitacion.Hotele.nombre
                             blockquote 
                             a(href=`/modificarHab?id_hbt=${habitacion.id_hbt}`,
                             class='btn btn-success btn-clock') Modificar

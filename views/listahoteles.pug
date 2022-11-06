@@ -7,8 +7,12 @@ block compartircontenido
                 .col-md.col-lg-4.mv-4 
                     .card                        
                         .card-body
-                            h3=hotel.nombre
-                            h3=hotel.Gerente.nombre
+                            <!--h5="Identificador: " + hotel.id_htl-->
+                            h5="Nombre: " + hotel.nombre
+                            h5="Dirección: " + hotel.direccion 
+                            h5="Teléfono: " + hotel.telefono 
+                            h5="Correo: " + hotel.correo 
+                            h5="Gerente: " + hotel.Gerente.nombre + " " + hotel.Gerente.ap_paterno + " " + hotel.Gerente.ap_materno
                             blockquote 
                             a(href=`/modificarHot?id_htl=${hotel.id_htl}`,
                             class='btn btn-success btn-clock') Modificar

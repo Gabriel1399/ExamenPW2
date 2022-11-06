@@ -20,9 +20,33 @@ header .nav a {
 }
 
 .lista-iconos {
-    background-color: rgb(245, 245, 245);
+    background-color: #C70039;
     
 }
 .lista-iconos img {
     height: 100px;
+}
+
+
+
+.btn-success{
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 2px solid green;
+}
+.btn-success:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+}
+.btn-danger{
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 2px solid red;
+}
+    
+.btn-danger:hover {
+    color: #1883ba;
+    background-color: #ffffff;
 }

@@ -31,6 +31,9 @@ block compartircontenido
                             <!--input#refrigerador(type="text",placeholder="Hay refrigerador [true/false]?",name="refrigerador",class="form-control",value=refrigerador)-->
                         .form-group 
                             label(for="id_htl") Hotel 
-                            input#id_htl(type="text",placeholder="Hotel",name="id_htl",class="form-control",value=id_htl)
+                            //-input#id_htl(type="text",placeholder="Hotel",name="id_htl",class="form-control",value=id_htl)-//
+                            select#hotel(name="hotel", class="form-control")
+                                each info in infos 
+                                    option(value=info.dato4) #{info.dato3}
                         
                         input.btn.btn-success.btn-block(type="submit")
