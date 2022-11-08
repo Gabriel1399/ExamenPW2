@@ -1,6 +1,9 @@
 import {habitacion} from "../models/Habitaciones.js";
 import { hotel } from "../models/Hoteles.js";
 import { gerente } from "../models/Gerentes.js";
+import { MisDatos } from "../models/MisDatos.js";
+import db from "../config/db.js";
+
 const guardarHabitaciones = async(req,res)=>{
     const{id_hbt, piso, nombre, refrigerador, id_htl} = req.body;
     const errores = [];
@@ -80,6 +83,12 @@ const cambiarHabitaciones = async (req, res) => {
     console.log('Listo '+req.query.id_hbt)
     try{
         const hab=await habitacion.findByPk(req.query.id_hbt)
+        const info = await db.query(
+            "select nombre as dato3, id_htl as dato4 from Hoteles"
+        ,{
+            model:MisDatos,
+            mapToModel: true
+        });
         console.log(hab);
         //const {correo, imagen, opinion} =req.body;
         const errores = [];
@@ -90,7 +99,8 @@ const cambiarHabitaciones = async (req, res) => {
             piso:hab.piso,
             nombre:hab.nombre,
             refrigerador:hab.refrigerador,
-            id_htl:hab.id_htl
+            id_htl:hab.id_htl,
+            infos:info
         });
     } catch(error){
     console.log(error);
@@ -100,6 +110,9 @@ const cambiarHabitaciones = async (req, res) => {
 const eliminarHabitaciones =async(req, res) => {
     console.log('listo borrar '+req.query.id_hbt)
     try{
+        /*await hotel.update({
+            id_hbt:null,
+        }, {where: {id_hbt:req.query.id_hbt}});*/
         await habitacion.destroy({
             where: {id_hbt:req.query.id_hbt}});
         res.redirect("/listahabitaciones");

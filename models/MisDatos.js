@@ -8,13 +8,13 @@ export const MisDatos = db.define(
       type: Sequelize.STRING
     },
     dato2: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     },
     dato3: {
       type: Sequelize.STRING,
     },
     dato4: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     },
     dato5: {
       type: Sequelize.STRING,

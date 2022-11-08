@@ -1,4 +1,5 @@
 import {gerente} from "../models/Gerentes.js";
+import { hotel } from "../models/Hoteles.js";
 const guardarGerentes = async(req,res)=>{
     const{id_grt, nombre, ap_paterno, ap_materno, telefono} = req.body;
     const errores = [];
@@ -94,6 +95,9 @@ const cambiarGerentes = async (req, res) => {
 const eliminarGerentes =async(req, res) => {
     console.log('listo borrar '+req.query.id_grt)
     try{
+        /*await hotel.update({
+            id_grt:null,
+        }, {where:{id_grt:req.query.id_grt}});*/
         await gerente.destroy({
             where: {id_grt:req.query.id_grt}});
         res.redirect("/listagerentes");

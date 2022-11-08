@@ -28,9 +28,9 @@ block compartircontenido
                             label(for="correo") Correo 
                             input#correo(type="text",placeholder="Tu correo",name="correo",class="form-control",value=correo)
                         .form-group 
-                            label Gerente
+                            label(for="id_grt") Gerente
                             //-input#id_grt(type="text",placeholder="Gerente",name="id_grt",class="form-control",value=id_grt)-//
-                            select#gerente(name="gerente" class="form-control")
+                            select#id_grt(name="id_grt", class="form-control")
                                 each info in infos  
                                     option(value=info.dato2) #{info.dato1}
                             

@@ -1,5 +1,9 @@
 import {hotel} from "../models/Hoteles.js";
 import {gerente} from "../models/Gerentes.js"
+import { MisDatos } from "../models/MisDatos.js";
+import { habitacion } from "../models/Habitaciones.js";
+import db from "../config/db.js";
+
 const guardarHoteles = async(req,res)=>{
     const{id_htl, nombre, direccion, telefono,correo, id_grt} = req.body;
     const errores = [];
@@ -70,6 +74,7 @@ const listaHoteles = async (req, res) => {
         attributes: ["id_htl", "nombre", "direccion", "telefono", "correo", "id_grt"],
         include: {
             model: gerente,
+            
         }
     });
 
@@ -84,6 +89,12 @@ const cambiarHoteles = async (req, res) => {
     console.log('Listo '+req.query.id_htl)
     try{
         const hot=await hotel.findByPk(req.query.id_htl)
+        const info = await db.query(
+            "select nombre as dato1, id_grt as dato2 from Gerentes where id_grt not in(select id_grt from Hoteles)"
+        ,{
+            model:MisDatos,
+            mapToModel: true
+        });
         console.log(hot);
         //const {correo, imagen, opinion} =req.body;
         const errores = [];
@@ -95,7 +106,8 @@ const cambiarHoteles = async (req, res) => {
             direccion:hot.direccion,
             telefono:hot.telefono,
             correo:hot.correo,
-            id_grt:hot.id_grt
+            id_grt:hot.id_grt,
+            infos:info
         });
     } catch(error){
     console.log(error);
@@ -105,6 +117,9 @@ const cambiarHoteles = async (req, res) => {
 const eliminarHoteles =async(req, res) => {
     console.log('listo borrar '+req.query.id_htl)
     try{
+        /*await habitacion.update({
+            id_htl:null,        
+        }, {where:{id_htl:req.query.id_htl}});*/
         await hotel.destroy({
             where: {id_htl:req.query.id_htl}});
         res.redirect("/listahotel");

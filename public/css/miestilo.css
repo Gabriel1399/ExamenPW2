@@ -1,34 +1,70 @@
-.navegacion {
-    background-color: #78281F;
-    background-size: 100%;
-
-}
-
-.cuerpo{
-    background-color: #C70039;
-}
-footer .nav a{
-    font-family: 'Staatliches', cursive;
-    font-size: 1.4rem;
-    color: blanchedalmond;
-}
-
 header .nav a {
     font-family: 'Staatliches', cursive;
-    font-size: 2rem;
-    color: white;
+    font-size: 1.5rem;
+    color: rgb(242, 235, 241);
 }
-
+.navegacion {
+    background-color: #040404;
+}
 .lista-iconos {
-    background-color: #C70039;
-    
+    background-color: rgb(245, 245, 245);
 }
 .lista-iconos img {
     height: 100px;
 }
-
-
-
+body {
+    background: linear-gradient(to right, #667f99, #a4a5db); 
+}
+h1{
+    font-family: 'Carrois Gothic SC', sans-serif;
+    display: block;
+    text-align: center;
+    line-height:.8;
+    color: white;
+}
+a {
+    font-size: 1.4rem;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    display: block;
+    text-align: center;
+    line-height:.8;
+    color: white;
+}
+p {
+    font-size: rem;
+    color: white;
+}
+.contenido {
+    max-width: 1200px;
+    margin: 5rem auto 0 auto;
+    color: white;
+    font-size: 3rem;
+    font-family: 'Carrois Gothic SC', sans-serif;
+}
+.hashtag {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2{
+    font-size: 1.7rem;
+    color: white;
+}
+h3{
+    font-size: 1.2rem;
+    color: white;
+}
+    
+ footer .nav a{
+    font-family: 'Staatliches', cursive;
+    font-size: 1.4rem;
+    color: blanchedalmond;
+}
+.lista-iconos {
+    background-color: #74808d;
+        
+}
+.lista-iconos img {
+    height: 100px;
+}
 .btn-success{
     text-decoration: none;
     color: #ffffff;
@@ -50,3 +86,4 @@ header .nav a {
     color: #1883ba;
     background-color: #ffffff;
 }
+    
