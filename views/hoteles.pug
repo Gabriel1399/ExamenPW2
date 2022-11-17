@@ -30,8 +30,8 @@ block compartircontenido
                         .form-group 
                             label(for="id_grt") Gerente
                             //-input#id_grt(type="text",placeholder="Gerente",name="id_grt",class="form-control",value=id_grt)-//
-                            select#id_grt(name="id_grt", class="form-control")
-                                each info in infos  
-                                    option(value=info.dato2) #{info.dato1}
+                            select#id_grt(name="id_grt")
+                                each gerente in gerentes  
+                                    option(value=gerente.id_grt) #{gerente.nombre}
                             
                         input.btn.btn-success.btn-block(type="submit")

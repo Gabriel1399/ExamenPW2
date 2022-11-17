@@ -11,8 +11,6 @@ block compartircontenido
                             h5= "Nombre: " + gerente.nombre + " " + gerente.ap_paterno + " " + gerente.ap_materno
                             h5= "Telefono: " + gerente.telefono
                             blockquote 
-                            a(href=`/modificarGer?id_grt=${gerente.id_grt}`,
-                            class='btn btn-success btn-clock') Modificar
+                            a(href=`/modificarGer?id_grt=${gerente.id_grt}`,class='btn btn-success btn-clock') Modificar
                             |
-                            a(href=`/eliminar?id_grt=${gerente.id_grt}`,
-                            class='btn btn-danger btn-clock') Eliminar
+                            a(href=`/eliminarGer?id_grt=${gerente.id_grt}`,class='btn btn-danger btn-clock') Eliminar

@@ -11,11 +11,16 @@ block compartircontenido
                             h5="Nombre: " + hotel.nombre
                             h5="Dirección: " + hotel.direccion 
                             h5="Teléfono: " + hotel.telefono 
-                            h5="Correo: " + hotel.correo 
-                            h5="Gerente: " + hotel.Gerente.nombre + " " + hotel.Gerente.ap_paterno + " " + hotel.Gerente.ap_materno
+                            h5="Correo: " + hotel.correo
+                            li.list-group-item Id Gerente: #{hotel.id_grt}
+                            each habitacion in habitaciones 
+                                -if(habitacion.id_htl==hotel.id_htl)
+                                    p 
+                                    li.list-group-item Habitacion: #{habitacion.nombre}
+                        
                             blockquote 
                             a(href=`/modificarHot?id_htl=${hotel.id_htl}`,
                             class='btn btn-success btn-clock') Modificar
                             |
-                            a(href=`/eliminar?id_htl=${hotel.id_htl}`,
+                            a(href=`/eliminarHot?id_htl=${hotel.id_htl}`,
                             class='btn btn-danger btn-clock') Eliminar

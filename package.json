@@ -3,26 +3,20 @@
     "express": "^4.18.2",
     "init": "^0.1.2",
     "mariadb": "^3.0.2",
-    "nodemon": "^2.0.20",
     "pug": "^3.0.2",
     "sequelize": "^6.25.3"
   },
   "name": "examenpw2",
   "version": "1.0.0",
-  "description": "\"Examen\"",
+  "description": "Examen",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js"
   },
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gabriel1399/ExamenPW2.git"
-  },
-  "author": "\"Equipo 8\"",
+  "author": "Equipo 8",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Gabriel1399/ExamenPW2/issues"
-  },
-  "homepage": "https://github.com/Gabriel1399/ExamenPW2#readme"
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

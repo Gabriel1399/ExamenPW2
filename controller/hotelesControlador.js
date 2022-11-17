@@ -1,17 +1,15 @@
-import {hotel} from "../models/Hoteles.js";
-import {gerente} from "../models/Gerentes.js"
-import { MisDatos } from "../models/MisDatos.js";
+import { hotel } from "../models/Hoteles.js";
+import { gerente } from "../models/Gerentes.js";
 import { habitacion } from "../models/Habitaciones.js";
-import db from "../config/db.js";
-
 const guardarHoteles = async(req,res)=>{
-    const{id_htl, nombre, direccion, telefono,correo, id_grt} = req.body;
+    const{id_htl,nombre,direccion,telefono,correo,id_grt} = req.body;
+    const gerentes = await gerente.findAll();
     const errores = [];
     if(nombre.trim()===""){
         errores.push({mensaje: "El nombre no debe ser vacio"});
     }
     if(direccion.trim()===""){
-        errores.push({mensaje: "La direccion no debe ser vacio"});
+        errores.push({mensaje: "El direccion no debe ser vacio"});
     }
     if(telefono.trim()===""){
         errores.push({mensaje: "El telefono no debe ser vacio"});
@@ -19,12 +17,10 @@ const guardarHoteles = async(req,res)=>{
     if(correo.trim()===""){
         errores.push({mensaje: "El correo no debe ser vacio"});
     }
-    if(id_grt.trim()===""){
-        errores.push({mensaje: "El id_grt no debe ser vacio"});
-    }
     if (errores.length>0){
         res.render("hoteles",{
-            pagina:"Hoteles",
+            pagina:"Agrega Hotel",
+            gerentes,
             errores,
             nombre,
             direccion,
@@ -32,25 +28,24 @@ const guardarHoteles = async(req,res)=>{
             correo,
             id_grt,
         });
-    } else {
+    } else{
         console.log(id_htl);
-        if(id_htl > 0){
+        if(id_htl>0){
             //Actualizar
-            console.log("actualiza");
-            try{
+            console.log("Actualiza");
+            try {
                 await hotel.update({
                     nombre,
                     direccion,
                     telefono,
                     correo,
-                    id_grt
-                },{where: {id_htl:id_htl}});
-                res.redirect('/listahoteles');
-            } catch (error){
+                    id_grt,
+                },{where:{id_htl:id_htl}});
+                res.redirect("/hoteles");
+            } catch(error){
                 console.log(error);
             }
-
-        } else{
+        } else {
             //Almacenar en la base de datos
             try{
                 await hotel.create({
@@ -58,73 +53,64 @@ const guardarHoteles = async(req,res)=>{
                     direccion,
                     telefono,
                     correo,
-                    id_grt
-                });
+                    id_grt,
+                },);
                 res.redirect('/hoteles');
             } catch (error){
                 console.log(error);
             }
         }
-        
     }
 };
 
-const listaHoteles = async (req, res) => {
+const listaHoteles = async(req,res)=>{
+    const habitaciones = await habitacion.findAll();
     const hoteles = await hotel.findAll({
-        attributes: ["id_htl", "nombre", "direccion", "telefono", "correo", "id_grt"],
-        include: {
-            model: gerente,
-            
-        }
+        attributes:["id_htl","nombre","direccion","telefono","correo","id_grt"],        
     });
-
     res.render("listahoteles", {
-        pagina: "Hoteles",
-        hoteles
+        pagina: "Lista Hoteles",
+        hoteles,
+        habitaciones
     });
 };
 
-const cambiarHoteles = async (req, res) => {
-
-    console.log('Listo '+req.query.id_htl)
+const cambiarHoteles = async(req,res)=>{
+    const gerentes = await gerente.findAll();
+    console.log('Listo'+req.query.id_htl)
     try{
-        const hot=await hotel.findByPk(req.query.id_htl)
-        const info = await db.query(
-            "select nombre as dato1, id_grt as dato2 from Gerentes where id_grt not in(select id_grt from Hoteles)"
-        ,{
-            model:MisDatos,
-            mapToModel: true
-        });
-        console.log(hot);
-        //const {correo, imagen, opinion} =req.body;
+        const h = await hotel.findByPk(req.query.id_htl)
+        console.log(h);
         const errores = [];
-        res.render("hoteles", {
-            pagina: "Hoteles",
-            errores, 
-            id_htl:hot.id_htl,
-            nombre:hot.nombre,
-            direccion:hot.direccion,
-            telefono:hot.telefono,
-            correo:hot.correo,
-            id_grt:hot.id_grt,
-            infos:info
+        res.render("hoteles",{
+            pagina: "Modificar Hotel",
+            errores,
+            gerentes,
+            id_htl:h.id_htl,
+            nombre:h.nombre,
+            direccion:h.direccion,
+            telefono:h.telefono,
+            correo:h.correo,
+            id_grt:h.id_grt
+            
         });
-    } catch(error){
-    console.log(error);
-    }
-};
-
-const eliminarHoteles =async(req, res) => {
-    console.log('listo borrar '+req.query.id_htl)
-    try{
-        /*await habitacion.update({
-            id_htl:null,        
-        }, {where:{id_htl:req.query.id_htl}});*/
-        await hotel.destroy({
-            where: {id_htl:req.query.id_htl}});
-        res.redirect("/listahotel");
-    } catch(error){
+    } catch (error){
         console.log(error);
     }
 };
+
+const eliminarHoteles = async(req,res)=>{
+    console.log('Listo borrar '+req.query.id_htl)
+    try{
+        await habitacion.update({
+            id_htl:null,
+        },{where:{id_htl:req.query.id_htl}});
+        await hotel.destroy({
+            where: {id_htl:req.query.id_htl}});
+        res.redirect("/listahoteles");
+        //console.log(h);
+    } catch (error){
+        console.log(error);
+    }
+}
 export {guardarHoteles, listaHoteles, cambiarHoteles, eliminarHoteles};

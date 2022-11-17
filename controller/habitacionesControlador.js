@@ -1,11 +1,8 @@
-import {habitacion} from "../models/Habitaciones.js";
+import { habitacion } from "../models/Habitaciones.js";
 import { hotel } from "../models/Hoteles.js";
-import { gerente } from "../models/Gerentes.js";
-import { MisDatos } from "../models/MisDatos.js";
-import db from "../config/db.js";
-
 const guardarHabitaciones = async(req,res)=>{
-    const{id_hbt, piso, nombre, refrigerador, id_htl} = req.body;
+    const hoteles = await hotel.findAll();
+    const{id_hbt,piso,nombre,refrigerador,id_htl} = req.body;
     const errores = [];
     if(piso.trim()===""){
         errores.push({mensaje: "El piso no debe ser vacio"});
@@ -13,39 +10,36 @@ const guardarHabitaciones = async(req,res)=>{
     if(nombre.trim()===""){
         errores.push({mensaje: "El nombre no debe ser vacio"});
     }
-    if(refrigerador.trim()===""){
+    if(refrigerador===null){
         errores.push({mensaje: "El refrigerador no debe ser vacio"});
-    }
-    if(id_htl.trim()===""){
-        errores.push({mensaje: "El id_htl no debe ser vacio"});
     }
     if (errores.length>0){
         res.render("habitaciones",{
-            pagina:"Habitaciones",
+            pagina:"Agrega Habitacion",
             errores,
+            hoteles,
             piso,
             nombre,
             refrigerador,
-            id_htl
+            id_htl,
         });
-    } else {
+    } else{
         console.log(id_hbt);
-        if(id_hbt > 0){
+        if(id_hbt>0){
             //Actualizar
-            console.log("actualiza");
-            try{
+            console.log("Actualiza");
+            try {
                 await habitacion.update({
                     piso,
                     nombre,
                     refrigerador,
                     id_htl,
-                },{where: {id_hbt:id_hbt}});
-                res.redirect('/listahabitaciones');
-            } catch (error){
+                },{where:{id_hbt:id_hbt}});
+                res.redirect("/habitaciones");
+            } catch(error){
                 console.log(error);
             }
-
-        } else{
+        } else {
             //Almacenar en la base de datos
             try{
                 await habitacion.create({
@@ -59,65 +53,54 @@ const guardarHabitaciones = async(req,res)=>{
                 console.log(error);
             }
         }
-        
     }
 };
 
-const listaHabitaciones = async (req, res) => {
+const listaHabitaciones = async(req,res)=>{
     const habitaciones = await habitacion.findAll({
-        attributes: ["id_hbt", "piso", "nombre", "refrigerador", "id_htl"],
-        include: {
-            model: hotel,
-            required: true,
-        }
+        attributes:["id_hbt","piso","nombre","refrigerador","id_htl"],        
     });
-
+    
     res.render("listahabitaciones", {
-        pagina: "Habitaciones",
+        pagina: "Lista Habitaciones",
         habitaciones
     });
 };
 
-const cambiarHabitaciones = async (req, res) => {
-
+const cambiarHabitaciones = async(req,res)=>{
+    const hoteles = await hotel.findAll();
     console.log('Listo '+req.query.id_hbt)
     try{
-        const hab=await habitacion.findByPk(req.query.id_hbt)
-        const info = await db.query(
-            "select nombre as dato3, id_htl as dato4 from Hoteles"
-        ,{
-            model:MisDatos,
-            mapToModel: true
-        });
-        console.log(hab);
-        //const {correo, imagen, opinion} =req.body;
+        const h = await habitacion.findByPk(req.query.id_hbt)
+        console.log(h);
         const errores = [];
-        res.render("habitaciones", {
-            pagina: "Habitaciones",
-            errores, 
-            id_hbt:hab.id_hbt,
-            piso:hab.piso,
-            nombre:hab.nombre,
-            refrigerador:hab.refrigerador,
-            id_htl:hab.id_htl,
-            infos:info
+        res.render("habitaciones",{
+            pagina: "Modificar Habitacion",
+            errores,
+            hoteles,
+            id_hbt:h.id_hbt,
+            piso:h.piso,
+            nombre:h.nombre,
+            refrigerador:h.refrigerador,
+            id_htl:h.id_htl
         });
-    } catch(error){
-    console.log(error);
-    }
-};
-
-const eliminarHabitaciones =async(req, res) => {
-    console.log('listo borrar '+req.query.id_hbt)
-    try{
-        /*await hotel.update({
-            id_hbt:null,
-        }, {where: {id_hbt:req.query.id_hbt}});*/
-        await habitacion.destroy({
-            where: {id_hbt:req.query.id_hbt}});
-        res.redirect("/listahabitaciones");
-    } catch(error){
+    } catch (error){
         console.log(error);
     }
 };
+
+const eliminarHabitaciones = async(req,res)=>{
+    console.log('Listo borrar '+req.query.id_hbt)
+    try{
+        await hotel.update({
+            id_hbt:null,
+        },{where:{id_hbt:req.query.id_hbt}});
+        await habitacion.destroy({
+            where: {id_hbt:req.query.id_hbt}});
+        res.redirect("/listahabitaciones");
+        //console.log(h);
+    } catch (error){
+        console.log(error);
+    }
+}
 export {guardarHabitaciones, listaHabitaciones, cambiarHabitaciones, eliminarHabitaciones};

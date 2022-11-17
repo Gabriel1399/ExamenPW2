@@ -11,10 +11,10 @@ block compartircontenido
                             h5="Nombre: " + habitacion.nombre
                             h5="Piso: " +habitacion.piso
                             h5="Refigereador: " + habitacion.refrigerador
-                            h5="En Hotel: " +habitacion.Hotele.nombre
+                            <!--h5="En Hotel: " +habitacion.Hotele.nombre-->
                             blockquote 
                             a(href=`/modificarHab?id_hbt=${habitacion.id_hbt}`,
                             class='btn btn-success btn-clock') Modificar
                             |
-                            a(href=`/eliminar?id_hbt=${habitacion.id_hbt}`,
+                            a(href=`/eliminarHab?id_hbt=${habitacion.id_hbt}`,
                             class='btn btn-danger btn-clock') Eliminar

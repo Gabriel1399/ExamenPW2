@@ -4,35 +4,36 @@ CREATE DATABASE IF NOT EXISTS bdZacatlan DEFAULT CHARACTER SET UTF8MB4 ;
 USE bdZacatlan;
 
 
-CREATE TABLE Gerentes (
-	id_grt		INTEGER NOT NULL AUTO_INCREMENT,
-	nombre		VARCHAR(40) NOT NULL,
-	ap_paterno	VARCHAR(20) NOT NULL,
-	ap_materno	VARCHAR(20) NOT NULL,
-	telefono	VARCHAR(10) NOT NULL,
-	PRIMARY KEY(id_grt)
-) DEFAULT CHARACTER SET UTF8MB4;
-
-CREATE TABLE Hoteles (
-	id_htl 		INTEGER NOT NULL AUTO_INCREMENT,
-	nombre 		VARCHAR(40) NOT NULL,
-	direccion	VARCHAR(100) NOT NULL,
-	telefono		VARCHAR(10) NOT NULL,
-	correo		VARCHAR (50) NOT NULL,
-	id_grt		INTEGER,
-	PRIMARY KEY(id_htl),
-	FOREIGN KEY (id_grt) REFERENCES Gerentes (id_grt)
+CREATE TABLE Gerentes(
+id_grt						INTEGER NOT NULL AUTO_INCREMENT,
+nombre						VARCHAR(80) NOT NULL,
+ap_paterno					VARCHAR(15) NOT NULL,
+ap_materno					VARCHAR(15) NOT NULL,
+telefono					VARCHAR(10) NOT NULL,
+PRIMARY KEY(id_grt)
 )DEFAULT CHARACTER SET UTF8MB4;
 
-CREATE TABLE Habitaciones (
-	id_hbt 			INTEGER NOT NULL AUTO_INCREMENT,
-	piso 				VARCHAR(10) NOT NULL,
-	nombre			VARCHAR(30) NOT NULL,
-	refrigerador 	BOOLEAN NOT NULL,
-	id_htl			INTEGER,
-	PRIMARY KEY(id_hbt),
-	FOREIGN KEY (id_htl) REFERENCES Hoteles (id_htl)
+CREATE TABLE Hoteles(
+id_htl						INTEGER NOT NULL AUTO_INCREMENT,
+nombre						VARCHAR(40) NOT NULL,
+direccion					VARCHAR(100) NOT NULL,
+telefono					VARCHAR(10) NOT NULL,
+correo						VARCHAR(30) NOT NULL,
+id_grt						INTEGER,
+PRIMARY KEY(id_htl),
+FOREIGN KEY(id_grt) REFERENCES Gerentes(id_grt)
 )DEFAULT CHARACTER SET UTF8MB4;
+
+CREATE TABLE Habitaciones(
+id_hbt						INTEGER NOT NULL AUTO_INCREMENT,
+piso						VARCHAR(10) NOT NULL,
+nombre						VARCHAR(30) NOT NULL,
+refrigerador				BOOLEAN	NOT NULL,
+id_htl						INTEGER,
+PRIMARY KEY(id_hbt),
+FOREIGN KEY(id_htl) REFERENCES Hoteles(id_htl)
+)DEFAULT CHARACTER SET UTF8MB4;
+
 
 DELETE FROM Hoteles;
 DELETE FROM Habitaciones;
